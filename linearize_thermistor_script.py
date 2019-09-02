@@ -21,12 +21,12 @@ print(Rbalast)
 T_values = list(range(Tl, Th))
 R_values = [Ro*math.exp(B*((1/T)-(1/To))) for T in T_values]
 
-plt.plot(T_values, R_values, linewidth=5)
+plt.subplot(T_values, R_values, linewidth=5)
 
 plt.show()
 
 R_linear_values = [(Ro*math.exp(B*((1/T)-(1/To))) * Rbalast)/(Ro*math.exp(B*((1/T)-(1/To))) + Rbalast) for T in T_values]
 
-plt.plot(T_values, R_linear_values, linewidth=5)
+plt.subplot(T_values, R_linear_values, linewidth=5)
 
 plt.show()
