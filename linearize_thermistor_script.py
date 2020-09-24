@@ -25,9 +25,11 @@ R_linear_values = [(Ro*math.exp(B*((1/T)-(1/To))) * Rbalast)/(Ro*math.exp(B*((1/
 
 Rs = (Ro*Rbalast)/(Ro+Rbalast)
 Rs_values = [(Rs/(Rs+(Ro*math.exp(B*((1/T)-(1/To))) * Rbalast)/(Ro*math.exp(B*((1/T)-(1/To))) + Rbalast))) for T in T_values]
-R_slope =  
+R_slope =  (Rs_values[-1] - Rs_values[0])/(Th-Tl)
+B = R_slope * Tl -0.5
 print("R balast is = ", Rbalast)
 print("R series is = ", Rs)
+print("Linear function is : ",R_slope,"x -", B)
 fig, (R, V)= plt.subplots(2)
 fig.suptitle("Thermistor values and ratio") 
 R.plot(T_values, R_values, linewidth=5,color= 'red')
