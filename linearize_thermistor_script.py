@@ -43,7 +43,7 @@ def resistor_round(Rs):
     else:
         divisor = 10000
 
-    Rs = min(r_values, key=lambda x:abs(x-(Rs/divisor)))
+    Rs = min(r_values, key=lambda x:abs(x-(Rs/divisor)))  #Min function gets value from r_values that has the shortest distance from RS/Divisor 
 
     Rs = Rs * divisor # Set value back to the right magnitude
 
