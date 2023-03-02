@@ -62,6 +62,7 @@ def calccallback():
     if (resistor_number.get() == 1):
 
         T_values = list(range(Tl, Th))
+
         R_values = [Ro*math.exp(B*((1/T)-(1/To))) for T in T_values]
         Rs = R_values[int(Tmid)]*((B-2*Tmid)/(B+2*Tmid))
         Rs = resistor_round(Rs)
@@ -86,21 +87,21 @@ def calccallback():
         print("R balast is = ", Rbalast)
 
     #Print Results and Graphs
+    T_values = [T-273 for T in T_values]
     print("R series is = ", Rs)
     print("Linear function is : ",R_slope,"*(Temp - ", (Tl-273), ") + ", intercept)
     fig, (R, V)= plt.subplots(2)
     fig.suptitle("Thermistor values and ratio") 
-    R.plot(T_values, R_values, linewidth=5,color= 'red')
+    R.plot(T_values, R_values, linewidth=1,color= 'red')
     if (resistor_number.get() == 2):
-        R.plot(T_values, R_linear_values, linewidth=5, color = 'blue')
+        R.plot(T_values, R_linear_values, linewidth=1, color = 'blue')
     R.set_ylabel('Resistance (ohms)')
-    R.set_xlabel('Temperature (K)')
-    V.plot(T_values, Rs_values, linewidth = 5)
+    R.set_xlabel('Temperature (C)')
+    V.plot(T_values, Rs_values, linewidth = 1)
     V.set_ylabel('Ratio')
-    V.set_xlabel('Temperature (K)')
+    V.set_xlabel('Temperature (C)')
     plt.show()
 
-    
 
 #Setup label layout 
 L1 = Label(top, text = "Thermistor resistance from datasheet")
