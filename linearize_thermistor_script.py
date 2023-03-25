@@ -88,7 +88,7 @@ def calccallback():
 
     #Print Results and Graphs
     T_values = [T-273 for T in T_values]
-    print("R series is = ", Rs)
+    print("R series is = ", round(Rs,1))
     print("Linear function is : ",R_slope,"*(Temp - ", (Tl-273), ") + ", intercept)
     fig, (R, V)= plt.subplots(2)
     fig.suptitle("Thermistor values and ratio") 
