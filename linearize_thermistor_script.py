@@ -1,6 +1,7 @@
 # !/usr/bin/python3
 #Linearized NTC Thermistor Script
-#This code was developed with the help of this excellent article
+#This code was developed with the help of these excellent articles
+#https://www.mathscinotes.com/2011/07/thermistor-mathematics/
 #https://www.mathscinotes.com/2013/12/two-resistor-thermistor-linearizer/
 import matplotlib.pyplot as plt
 import math 
@@ -73,7 +74,7 @@ def calccallback():
     #Calculate for the two resistor case
     if (resistor_number.get() == 2):
         Tr = (Th + Tl)/2 #determine mid temp for calculating ballast resistor
-        Rbalast = Ro*math.exp(B*((1/Tr)-(1/To))) * 3
+        Rbalast = Ro*math.exp(B*((1/Tr)-(1/To)))
 
         T_values = list(range(Tl, Th))
         R_values = [Ro*math.exp(B*((1/T)-(1/To))) for T in T_values]
@@ -81,6 +82,7 @@ def calccallback():
         R_linear_values = [(Ro*math.exp(B*((1/T)-(1/To))) * Rbalast)/(Ro*math.exp(B*((1/T)-(1/To))) + Rbalast) for T in T_values]
 
         Rs = (Ro*Rbalast)/(Ro+Rbalast)
+        Rs = resistor_round(Rs)
         Rs_values = [(Rs/(Rs+(Ro*math.exp(B*((1/T)-(1/To))) * Rbalast)/(Ro*math.exp(B*((1/T)-(1/To))) + Rbalast))) for T in T_values]
         R_slope =  (Rs_values[-1] - Rs_values[0])/(Th-Tl)
         intercept = Rs_values[0]
@@ -90,6 +92,7 @@ def calccallback():
     T_values = [T-273 for T in T_values]
     print("R series is = ", round(Rs,1))
     print("Linear function is : ",R_slope,"*(Temp - ", (Tl-273), ") + ", intercept)
+    print("Measured temperature = ((Vrs/Vsource) -", intercept, ")/(", R_slope, ") + 25")
     fig, (R, V)= plt.subplots(2)
     fig.suptitle("Thermistor values and ratio") 
     R.plot(T_values, R_values, linewidth=1,color= 'red')
